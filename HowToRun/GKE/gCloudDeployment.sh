@@ -1,8 +1,4 @@
-if [ "$LEVEL" == "DEBUG" ]; then
-	echo "Level is DEBUG. Press enter when paused"
-else
-	echo "Level is NOT DEBUG. There will be no wait"	
-fi
+set -e
 
 # We are creating shell script for deployment of this city_api project 
 echo 'Reset Docker to prevent connection error'
@@ -45,13 +41,6 @@ echo "Before creating new service we need to remove old services"
 kubectl get services
 kubectl delete service crack-detection-service
 kubectl get services
-
-if [ "$LEVEL" == "DEBUG" ]; then
-	echo "Press Enter if CrackDetection-logic is pushed to docker hub."
-	read CrackDetectionLogicIsPushed
-else
-	echo 'CrackDetection-logic pushed.'	
-fi
 
 echo "Creatinng a persistent volume & claim"
 kubectl apply -f resource-manifests/crackDetection-pvc.yaml
